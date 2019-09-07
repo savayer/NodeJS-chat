@@ -90,7 +90,7 @@ body {
 .settings {
     position: absolute;
     top: 50px;
-    left: 0;    
+    left: 0 !important;    
     width: 300px;    
     min-height: 300px;
     background: transparent;    
