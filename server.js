@@ -13,29 +13,39 @@ app.get('/', (req, res) => {
 });
 
 const wsServer = new WebSocket.Server({port: 8080});
+let data = {};
 
 wsServer.on('connection', ws => {  
   Clients.push(ws);
-  sendAll(`<small>Количество участников: ${wsServer.clients.size} </small>`);
-  ws.on('message', message => {
+  data.type = 'statistic';  
+  data.message = `<small>Количество участников: ${wsServer.clients.size} </small>`;
+  sendAll(data);
+  ws.on('message', data => {
     wsServer.clients.forEach(client => {
-      if (client.readyState === WebSocket.OPEN) {        
-        client.send(message);        
+      if (client.readyState === WebSocket.OPEN) {     
+        client.send(data);        
       }
     })
   })
 
   ws.on('close', () => {
-    sendAll(`<small>Количество участников: ${wsServer.clients.size} </small>`);
+    data.type = 'statistic';    
+    data.message = `<small>Количество участников: ${wsServer.clients.size} </small>`;
+    sendAll(data);
   })
 
-  ws.send('Welcome to NodeJS Chat');
-  ws.send(`<small>Количество участников: ${wsServer.clients.size} </small>`);      
+  data = {
+    type: 'message',
+    name: 'System',
+    message: 'Welcome to NodeJS Chat'
+  }
+
+  ws.send(JSON.stringify(data));  
 })
 
-function sendAll(message) {
+function sendAll(data) {
   for (var i=0; i<Clients.length; i++) {
-      Clients[i].send(message);
+      Clients[i].send(JSON.stringify(data));
   }
 }
 

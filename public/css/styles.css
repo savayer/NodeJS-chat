@@ -40,6 +40,15 @@ body {
     font-size: 19px;
 }
 
+.chat__username {
+    font-weight: bold;
+    letter-spacing: 1px;    
+}
+
+.chat__message {
+    margin-top: 3px;
+}
+
 #connection {
     color:#1fea1f;
     text-align: center;
@@ -170,8 +179,86 @@ body {
     margin: 15px 0;
 }
 
+.overlay-popup {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    display: flex;
+    opacity: 0;
+    background: rgba(0, 0, 0, 0.7);
+    transition: .4s;
+}
+
+.overlay-popup.active {
+    opacity: 1;
+    z-index: 100;
+}
+
+.popup {
+    width: 500px;
+    padding: 20px;
+    margin: auto;
+    display: flex;
+    position: relative;
+    z-index: 101;
+    background: #3c6774;
+}
+
+.popup__input {
+    flex-grow: 100;
+    font-size: 20px;
+    background: transparent;
+    border: none;
+    border-radius: 2px;
+    color: #fff;
+    margin-right: 10px;
+    outline: none;
+    padding: 4px 8px;
+    box-shadow: 0px 1px 7px #78868a;
+}
+
+.popup__input::placeholder {
+    color: #ababab;
+}
+
+.popup__button {
+    border: none;
+    background: #2d4850;
+    border-radius: 2px;
+    color: #fff;
+    outline: none;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 3px;
+}
+
 @media (max-width: 1200px) {
     .wrapper {
         width: 90%;
+    }
+}
+
+@media (max-width: 550px) {
+    .popup {
+        width: 90%;
+    }
+}
+
+@media (max-width: 400px) {
+    .popup {
+        flex-direction: column;
+    }
+
+    .popup__input {
+        margin: 0;
+    }
+
+    .popup__button {
+        margin-top: 10px;
     }
 }
