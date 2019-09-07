@@ -1,4 +1,4 @@
-const ws = new WebSocket('ws://node.savayer.localhost:8080');
+const ws = new WebSocket('ws://chat.savayer.me:8080');
 
 const $connection = document.getElementById('connection');
 const $chat = document.querySelector('.chat');
@@ -37,7 +37,7 @@ function addMessage(message) {
 
     $chat.appendChild($li);
     $dzinButton.click();
-    console.log(ws)
+    $chat.scrollTop = $chat.scrollHeight - $chat.clientHeight;
 }
 
 $send.addEventListener('click', e => {
@@ -48,7 +48,7 @@ $send.addEventListener('click', e => {
 
     ws.send($message.value);
     $message.value = '';
-    $chat.scrollTop = $chat.scrollHeight - $chat.clientHeight;
+    
 })
 
 $message.addEventListener('keypress', e => {
