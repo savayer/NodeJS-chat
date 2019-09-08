@@ -1,4 +1,9 @@
-const ws = new WebSocket('ws://chat.savayer.me:8080');
+let ws;
+if (location.protocol === 'https:') {
+    ws = new WebSocket('wss://chat.savayer.me:8000');
+} else {
+    ws = new WebSocket('ws://chat.savayer.me:8000');
+}
 
 const $connection = document.getElementById('connection');
 const $chat = document.querySelector('.chat');

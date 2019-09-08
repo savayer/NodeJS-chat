@@ -1,8 +1,27 @@
-const setup = {port:8000}
+const setup = {
+  ssl: false,
+  port: 8000
+}
 const express = require ('express'); 
+const app = express();
+const fs = require('fs');
 const path = require('path');
-const app = express ();
 const WebSocket = require('ws');
+const definedServerProtocol = setup.ssl ? require('https') : require('http');
+let server;
+
+/**
+ * Server implementation
+ */
+
+if (setup.ssl) {
+  const privateKey  = fs.readFileSync('/etc/letsencrypt/live/chat.savayer.me/privkey.pem', 'utf8');
+  const certificate = fs.readFileSync('/etc/letsencrypt/live/chat.savayer.me/fullchain.pem', 'utf8');
+  const credentials = {key: privateKey, cert: certificate};
+  server = definedServerProtocol.createServer(credentials, app);
+} else {
+  server = definedServerProtocol.createServer(app);  
+}
 
 let Clients = [];
 
@@ -12,7 +31,18 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname+'/public/index.html'));
 });
 
-const wsServer = new WebSocket.Server({port: 8080});
+
+server.listen(setup.port, () => {
+  console.log("server starting on port: %s", setup.port)
+});
+
+/**
+ * WebSocket implementation
+ */
+
+const wsServer = new WebSocket.Server({
+  server: server
+});
 let data = {};
 
 wsServer.on('connection', ws => {  
@@ -48,7 +78,3 @@ function sendAll(data) {
       Clients[i].send(JSON.stringify(data));
   }
 }
-
-app.listen(setup.port, () => {
-  console.log('Сервер: порт %s - старт!', setup.port);
-});
