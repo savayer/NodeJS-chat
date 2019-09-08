@@ -1,3 +1,3 @@
 # NODEJS Chat
 
-[demo](http://chat.savayer.me)
+[demo](https://chat.savayer.me)
