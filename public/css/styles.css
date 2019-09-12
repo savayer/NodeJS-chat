@@ -32,8 +32,8 @@ body {
 }
 
 /* хром, сафари */
-.chat::-webkit-scrollbar, textarea::-webkit-scrollbar { width: 0; }
-.chat, textarea { -ms-overflow-style: none; overflow: -moz-scrollbars-none; scrollbar-width: none; }
+.chat::-webkit-scrollbar, .message::-webkit-scrollbar { width: 0; }
+.chat, .message { -ms-overflow-style: none; overflow: -moz-scrollbars-none; scrollbar-width: none; }
 
 .chat li {
     margin: 12px 0;
@@ -59,8 +59,15 @@ body {
     position: relative;
 }
 
+.typing {
+    font-style: oblique;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
 .message {
-    resize: none;
+    max-height: 250px;
+    overflow-y: scroll;
     height: auto;
     background: none;
     border: none;
@@ -69,8 +76,19 @@ body {
     font-size: 18px;
     box-shadow: 0px 1px 7px #78868a;
     margin-right: 5px;
-    padding: 14px 70px 14px 14px;
+    margin-bottom: 15px;
+    padding: 14px 70px 14px 45px;
     width: 100%;
+}
+
+.message img {
+    height: 16px;
+    margin: 0 2px;
+    cursor: text;
+}
+
+.chat__message br {
+    display: none;
 }
 
 .send {    
@@ -79,7 +97,8 @@ body {
     outline: none;
     cursor: pointer;
     position: absolute;
-    top: calc(50% - 15px);
+    /* top: calc(50% - 18px); */
+    bottom: 6px;
     right: 10px;
 }
 
@@ -92,8 +111,19 @@ body {
     fill: #7f99a1;
 }
 
-.message:before {
-    content: '>';
+.smile {
+    width: 30px;
+    height: 30px;    
+    position: absolute;
+    left: 6px;
+    fill: rgb(194, 206, 207);
+    /* top: calc(50% - 15px); */
+    bottom: 10px;
+    cursor: pointer;
+}
+
+.smile:hover {
+    fill: #fff;
 }
 
 .settings {
@@ -261,4 +291,93 @@ body {
     .popup__button {
         margin-top: 10px;
     }
+}
+
+
+/********************/
+
+.Emoji_Block .Emoji_Clear {
+    clear: both;
+}
+.Emoji_Block .Emoji_Cont {
+    display: none;
+    position: absolute;
+    height: 200px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.Emoji_Block .Emoji_Cont::after {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: 12px;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 10px solid #fff;
+}
+.Emoji_Block .Emoji_Cont > div {
+    background: #fff;
+    width: 280px;
+    height: 200px;
+    padding: 5px;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.Emoji_Block .Emoji_Cont .Emoji_Smile {
+    float: left;
+    padding: 1px;
+    cursor: pointer;
+}
+.Emoji_Block .Emoji_Cont .Emoji_Smile > div {
+    width: 26px;
+    height: 26px;
+    line-height: 26px;
+    text-align: center;
+}
+.Emoji_Block .Emoji_Cont .Emoji_Smile > div img {
+    margin-top: 5px;
+}
+.Emoji_Block .Emoji_Cont .Emoji_Smile > div:hover {
+    background: #ccc;
+    border-radius: 2px;
+}
+.Emoji_Block .Emoji_TollBar {
+    width: 100%;
+    height: 30px;
+    background: #eee;
+    position: relative;
+    border-radius: 0 0 4px 4px;
+}
+.Emoji_Block .Emoji_Smiles_Show_Button {
+    float: right;
+    margin-top: 5px;
+    margin-right: 5px;
+}
+.Emoji_Block .Emoji_Smiles_Show_Button > div {
+    width: 20px;
+    height: 20px;
+    background: url(../img/1.png) 0 0 / cover;
+    cursor: pointer;
+}
+.Emoji_Submit {
+    position: absolute;
+    right: 0;
+    bottom: -30px;
+}
+.Emoji_Submit > div {
+    display: inline-block;
+    padding: 0 20px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    background: #eee;
+    border: 1px solid #eee;
+    font-size: 12px;
+    cursor: pointer;
+}
+.Emoji_Submit > div:hover {
+    border: 1px solid #aaf;
 }

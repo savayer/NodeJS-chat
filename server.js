@@ -40,6 +40,8 @@ server.listen(setup.port, () => {
  * WebSocket implementation
  */
 
+const sendAll = require('./modules/notifyAllClients');
+
 const wsServer = new WebSocket.Server({
   server: server
 });
@@ -49,10 +51,10 @@ wsServer.on('connection', ws => {
   Clients.push(ws);
   data.type = 'statistic';  
   data.message = `<small>Количество участников: ${wsServer.clients.size} </small>`;
-  sendAll(data);
+  sendAll(data, Clients);
   ws.on('message', data => {
     wsServer.clients.forEach(client => {
-      if (client.readyState === WebSocket.OPEN) {     
+      if (client.readyState === WebSocket.OPEN) {
         client.send(data);        
       }
     })
@@ -61,7 +63,7 @@ wsServer.on('connection', ws => {
   ws.on('close', () => {
     data.type = 'statistic';    
     data.message = `<small>Количество участников: ${wsServer.clients.size} </small>`;
-    sendAll(data);
+    sendAll(data, Clients);
   })
 
   data = {
@@ -69,12 +71,5 @@ wsServer.on('connection', ws => {
     name: 'System',
     message: 'Welcome to NodeJS Chat'
   }
-
   ws.send(JSON.stringify(data));  
 })
-
-function sendAll(data) {
-  for (var i=0; i<Clients.length; i++) {
-      Clients[i].send(JSON.stringify(data));
-  }
-}

@@ -25,8 +25,12 @@ let data = {
     message: ''
 };
 
+/**
+ * Show popup to enter name
+ */
+
 setTimeout(() => {
-    $overlay.classList.add('active');
+    $overlay.classList.add('active');    
 }, 500)
 
 $popupButton.addEventListener('click', () => {
@@ -46,6 +50,10 @@ $popupInput.addEventListener('keypress', e => {
     }
 })
 
+/**
+ * make a sound
+ */
+
 $dzinButton.addEventListener('click', function() {
     const prom = dzin.play()
     if (prom !== undefined) {
@@ -59,9 +67,17 @@ $dzinButton.addEventListener('click', function() {
     }
 })
 
+/**
+ * user status on the site 
+ */
+
 function setStatus(value) {
     $connection.innerHTML = value;
 }
+
+/**
+ * Print message 
+ */
 
 function addMessage(stringifiedData) {
     const data = JSON.parse(stringifiedData);    
@@ -77,7 +93,7 @@ function addMessage(stringifiedData) {
     $username.classList.add('chat__username');
     $username.innerHTML = data.name
 
-    $message.classList.add('chat__message');
+    $message.classList.add('chat__message');    
     $message.innerHTML = data.message;
 
     $li.appendChild($username);
@@ -88,8 +104,25 @@ function addMessage(stringifiedData) {
     $chat.scrollTop = $chat.scrollHeight - $chat.clientHeight;
 }
 
+/* function formattingMessage(message) {
+    try {
+        while (message.firstChild.tagName == 'BR') {
+            message.removeChild(message.firstChild)
+        }        
+        while (message.lastChild.tagName == 'BR') {
+            message.removeChild(message.lastChild)
+        }
+    } catch (e) {}
+    
+    return message
+} */
+
+/**
+ * Sending a message events
+ */
+
 $send.addEventListener('click', () => {
-    if ($message.value.trim() == '') {
+    if ($message.innerHTML.trim() == '' && !$message.firstChild) {
         alert('Message should not be empty');
         return false;
     }
@@ -100,9 +133,14 @@ $send.addEventListener('click', () => {
         return false;
     }
     data.type = 'message';
-    data.message = $message.value;
+    data.message = $message.innerHTML;
     ws.send(JSON.stringify(data));
-    $message.value = '';
+    /* $message.innerHTML = ''; */    
+    setTimeout(() => {
+        while ($message.firstChild) {
+            $message.removeChild($message.firstChild);
+        }
+    }, 0)
     
 })
 
@@ -111,6 +149,10 @@ $message.addEventListener('keypress', e => {
         $send.click();
     }
 })
+
+/**
+ * WS events
+ */
 
 ws.onopen = () => setStatus('Online');
 

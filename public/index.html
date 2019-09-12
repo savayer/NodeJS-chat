@@ -8,7 +8,11 @@
     <!-- <link rel="stylesheet" href="css/loader.css"> -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="css/nano.min.css">
+    <link rel="stylesheet" href="css/emoji.min.css">
+    <link rel="stylesheet" href="css/smiles.css">
     <link rel="stylesheet" href="css/styles.css">
+
+    <script src="js/emoji.js"></script>
 </head>
 <body>
     <!-- <div class="overlay active">
@@ -30,11 +34,28 @@
         <ul class="chat"></ul>
 
         <div class="controls">
-            <input type="text" class="message" autocomplete="off">
+            <div class="typing"></div>
+            <!-- <input type="text" class="message" autocomplete="off"> -->
+            <div class="smiles">
+                <!-- <svg class="smile" viewBox="0 0 32 32">
+                    <path d="M15.988 4c-6.624 0-11.988 5.376-11.988 12s5.364 12 11.988 12c6.636 0 12.012-5.376 12.012-12s-5.376-12-12.012-12zM16 25.6c-5.304 0-9.6-4.296-9.6-9.6s4.296-9.6 9.6-9.6 9.6 4.296 9.6 9.6-4.296 9.6-9.6 9.6zM20.2 14.8c0.996 0 1.8-0.804 1.8-1.8s-0.804-1.8-1.8-1.8-1.8 0.804-1.8 1.8 0.804 1.8 1.8 1.8zM11.8 14.8c0.996 0 1.8-0.804 1.8-1.8s-0.804-1.8-1.8-1.8-1.8 0.804-1.8 1.8 0.804 1.8 1.8 1.8zM16 22.6c2.796 0 5.172-1.752 6.132-4.2h-12.264c0.96 2.448 3.336 4.2 6.132 4.2z"></path>
+                </svg> -->
+                <div class="emojis"></div>
+            </div>
+            <div class="message" contenteditable="true"></div>
             <button class="send" type="button">
                 <svg x="0px" y="0px" width="30px" height="30px" viewBox="0 0 535.5 535.5" style="enable-background:new 0 0 535.5 535.5;" xml:space="preserve"><g><g id="send"><polygon points="0,497.25 535.5,267.75 0,38.25 0,216.75 382.5,267.75 0,318.75"/></g></g></svg>
             </button>
-        </div>
+        </div>        
+
+        <script>
+            var emojiList = Emoji.initByClass('emojis', {
+                smileContainerWidth: 280,
+                smileContainerHeight: 150,
+                smiles: ["D83DDE0A","D83DDE03","D83DDE09","D83DDE06","D83DDE1C","D83DDE0B","D83DDE0D","D83DDE0E","D83DDE12","D83DDE0F","D83DDE14","D83DDE22","D83DDE2D","D83DDE29","D83DDE28","D83DDE10","D83DDE0C","D83DDE04","D83DDE07","D83DDE30","D83DDE32","D83DDE33","D83DDE37","D83DDE02","2764","D83DDE1A","D83DDE15","D83DDE2F","D83DDE26","D83DDE35","D83DDE20","D83DDE21","D83DDE1D","D83DDE34","D83DDE18","D83DDE1F","D83DDE2C","D83DDE36","D83DDE2A","D83DDE2B","263A","D83DDE00","D83DDE25","D83DDE1B","D83DDE16","D83DDE24","D83DDE23","D83DDE27","D83DDE11","D83DDE05","D83DDE2E","D83DDE1E","D83DDE19","D83DDE13","D83DDE01","D83DDE31","D83DDE08","D83DDC7F","D83DDC7D","D83DDC4D","D83DDC4E","261D","270C","D83DDC4C","D83DDC4F","D83DDC4A","270B","D83DDE4F","D83DDC43","D83DDC46","D83DDC47"]
+            });
+            //var kemoji = emojiList[0];
+        </script>
 
     </div>
     
