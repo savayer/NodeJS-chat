@@ -146,6 +146,9 @@ $send.addEventListener('click', () => {
 
 $message.addEventListener('keypress', e => {
     if (e.keyCode === 13) {
+	if ($message.innerHTML === '<br><br>') {
+		$message.innerHTML = '';
+	}
         $send.click();
     }
 })

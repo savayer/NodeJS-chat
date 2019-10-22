@@ -266,7 +266,9 @@ body {
     cursor: pointer;
     padding: 3px;
 }
-
+.chat__message img {
+    margin: 0 2px;
+}
 @media (max-width: 1200px) {
     .wrapper {
         width: 90%;
